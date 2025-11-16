@@ -164,8 +164,8 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void initState() {
-    fetchData(searchCtrl.text);
-    super.initState();
+      fetchData(searchCtrl.text);
+      super.initState();
   }
 
   @override
@@ -183,8 +183,9 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
         child:  ListView(
-          padding: EdgeInsets.all(20),
+          padding: EdgeInsets.all(15),
           children: [
+            const SizedBox(height: 40,),
             Row(
               children: [
                 Expanded(
@@ -230,9 +231,10 @@ class _HomePageState extends State<HomePage> {
               ],
             ),
             const SizedBox(height: 15),
+              if(isLoading) const LinearProgressIndicator(),
               SizedBox(
                   height: 200,
-                  child: Image.asset('asset/weather.png',)),
+                  child: Image.asset('asset/weather.png'),),
               //error
               if (error != null)
                 Text(error!, style: TextStyle(color: Colors.red)),
@@ -245,7 +247,7 @@ class _HomePageState extends State<HomePage> {
               ),
               //current temp
               if (_cTemp != null)
-                Center(child: Text("${_cTemp!.toStringAsFixed(0)}°C",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 75),)),
+                Center(child: Text("${_cTemp!.toStringAsFixed(0)}°C",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 75,),)),
               //current wind kph
               if(_cWindKph != null)
                 Card(
@@ -254,12 +256,20 @@ class _HomePageState extends State<HomePage> {
                     padding: const EdgeInsets.all(15.0),
                     child: Row(
                       children: [
-                        Text("Sunny conditions likely through today wind up to ",style: TextStyle(color: Colors.black87),),
-                        Text("$_cWindKph km/h",style: TextStyle(
-                          color: Colors.red,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 18,
-                        ),),
+                        Text("Sunny conditions likely through today wind \nup to ------- ",style: TextStyle(color: Colors.black87,fontSize: 12,fontWeight: FontWeight.bold),),
+                        Expanded(
+                          child: Card(
+                            color: Colors.pink,
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text("$_cWindKph km/h",style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 15,
+                              ),),
+                            ),
+                          ),
+                        ),
                       ],
                     ),
                   ),
